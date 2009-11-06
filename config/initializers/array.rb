@@ -11,6 +11,10 @@ class Array
   def to_js_array
     '["' + self.escape_items_for_javascript.join('", "') + '"]'
   end
+
+  def shuffle
+    sort_by { rand }
+  end
   
   protected
   

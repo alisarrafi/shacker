@@ -1,0 +1,56 @@
+/* General */
+
+html { font-size:12px; color:#222; font-family:"Helvetica Neue", Arial, Helvetica, sans-serif; }
+a, a:visited, a:active, a:hover, a:focus { text-decoration: none; color: #f90; }
+h1 { font-weight: bold; font-size:20px; line-height:1; padding-bottom: 14px; }
+body { margin-top: 40px; }
+
+/* Structure */
+
+div.container {
+  width: 600px;
+  margin: 0 auto;
+  margin-top: 20px;
+	padding: 10px;
+	background: #eee;
+}
+
+/* Flash messages */
+
+div#flash-notice { background: #7f7; }
+div#flash-error { background: #c00; color: white; }
+div#flash-notice, div#flash-warning, div#flash-error {
+  position: absolute;
+  top: -50px;
+  width: 500px;
+  left: 300px;
+  padding: 7px;
+  line-height: 15px;
+  border: 1px solid #000;
+  border-top: 0px;
+  text-align: center;
+}
+
+/* CSS Corners */
+
+div.rounded_corners {
+	border: 1px solid #000;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+}
+ 
+div.rounded_top_corners {
+	border: 1px solid #000;
+	-moz-border-radius-topleft: 10px;
+	-webkit-border-top-left-radius: 10px;
+	-moz-border-radius-topright: 10px;
+	-webkit-border-top-right-radius: 10px;
+}
+ 
+div.rounded_bottom_corners {
+	border: 1px solid #000;
+	-moz-border-radius-bottomleft: 10px;
+	-webkit-border-bottom-left-radius: 10px;
+	-moz-border-radius-bottomright: 10px;
+	-webkit-border-bottom-right-radius: 10px;
+}

@@ -1,8 +1,18 @@
-<%= link_to_function "Test", "alert(chunks)" %>
-<%= link_to_function "Run", "shack();" %>
+<%= link_to_function "Secret", "alert(secret)" %>
+<%= link_to_function "Characters", "alert(characters)" %>
+<%= link_to_function "Chunks", "alert(chunks)" %>
+<%= link_to_function "Run", "shack();" %><br><br>
 
-<%= javascript_tag remote_function(:url => { :action => :chunks, :format => :js }) %>
+<%= javascript_tag remote_function(:url => { :action => :secret, :format => :js, :only_path => false }) %>
+<%= javascript_tag remote_function(:url => { :action => :characters, :format => :js, :only_path => false }) %>
+<%= javascript_tag remote_function(:url => { :action => :chunks, :format => :js, :only_path => false }) %>
 
+<%= link_to_function 'test_extensions', 'test_extensions();' %><br>
+<br>
+<%= link_to_function 'test_highest_character', 'test_highest_character();' %><br>
+<%= link_to_function 'test_increment_character', 'test_increment_character();' %><br>
+<%= link_to_function 'test_increment_chunk', 'test_increment_chunk();' %><br>
+<%= link_to_function 'test_increment_character_object', 'test_increment_character_object();' %><br>
 
 <div id="chunks"></div>
 <div id="result"></div>

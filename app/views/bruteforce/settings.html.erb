@@ -1,0 +1,17 @@
+<h1>Settings</h1><br>
+
+<% semantic_form_for session[:settings], :url => {:action => action_name} do |f| %>
+  <% f.inputs do %>
+    <%= f.input :mode, :as => :select, :collection => Settings.modes, :include_blank => false, :hint => 'What mode do we apply?' %>
+    <%= f.input :secret, :hint => 'The password to be cracked'%>
+  <% end %>
+  <%= f.buttons %>
+<% end %>
+
+Character space:<br>
+<%= session[:settings].character_space.join(' ') %>
+
+<br><br>
+
+Character order:<br>
+<%= session[:settings].characters.join(' ') %>
