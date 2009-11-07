@@ -24,7 +24,7 @@ class Settings
 
   def read
     settings = YAML.load_file SETTINGS_FILE
-    [:secret, :mode, :specials, :alphas, :digits, :modes_semantic, :characters, :max].each { |attribute| instance_eval "@#{attribute.to_s} = settings.#{attribute.to_s}" }
+    [:secret, :mode, :specials, :alphas, :digits, :modes_semantic, :characters, :max, :mix].each { |attribute| instance_eval "@#{attribute.to_s} = settings.#{attribute.to_s}" }
     self
   end
   

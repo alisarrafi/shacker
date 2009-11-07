@@ -1,68 +1,58 @@
 --- !ruby/object:Settings 
-alphas: 
-- a
-- b
-- c
-- d
-- e
-- f
-- g
-- h
-- i
-- j
-- k
-- l
-- m
-- n
-- o
-- p
-- q
-- r
-- s
-- t
-- u
-- v
-- w
-- x
-- y
-- z
-- A
-- B
-- C
-- D
-- E
-- F
-- G
-- H
-- I
-- J
-- K
-- L
-- M
-- N
-- O
-- P
-- Q
-- R
-- S
-- T
-- U
-- V
-- W
-- X
-- Y
-- Z
-characters: 
-- "3"
-- "4"
-- "8"
-- "0"
-- "1"
-- "9"
-- "6"
-- "7"
-- "2"
-- "5"
+alphas: &id001 
+  - a
+  - b
+  - c
+  - d
+  - e
+  - f
+  - g
+  - h
+  - i
+  - j
+  - k
+  - l
+  - m
+  - n
+  - o
+  - p
+  - q
+  - r
+  - s
+  - t
+  - u
+  - v
+  - w
+  - x
+  - y
+  - z
+  - A
+  - B
+  - C
+  - D
+  - E
+  - F
+  - G
+  - H
+  - I
+  - J
+  - K
+  - L
+  - M
+  - N
+  - O
+  - P
+  - Q
+  - R
+  - S
+  - T
+  - U
+  - V
+  - W
+  - X
+  - Y
+  - Z
+characters: *id001
 digits: 
 - "0"
 - "1"
@@ -74,11 +64,11 @@ digits:
 - "7"
 - "8"
 - "9"
-max: 4
-mix: 1
-mode: digit
+max: 3
+mix: 0
+mode: alpha
 modes_semantic: 
-secret: "1000"
+secret: abc
 specials: 
 - "!"
 - "\""

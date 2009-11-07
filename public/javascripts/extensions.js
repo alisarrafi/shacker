@@ -73,7 +73,7 @@ String.prototype.next_chunk = function() {
   var is_highest = this.is_highest();
   if (size == 0) {                        // Empty string
     return characters.first();            //   => Lowest character
-  } else if (size == 1 && is_highest) {   // Single, highest character
+  } else if (size == 1 && is_highest) {   // Single, highest character
     return characters.first().times(2);   //   => Two-character string with lowest character
   } else if (size == 1 && !is_highest) {  // Single, low character
     return this.increment();              //   => Next higher character

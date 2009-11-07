@@ -1,0 +1,36 @@
+page.assign :secret, session[:settings].secret.hashed
+page.assign :client, @options[:client]
+page.assign :characters, session[:settings].characters
+page.assign :realm, @options[:realm]
+page.assign :offset, @options[:offset]
+page.assign :chunk, @options[:chunk]
+page.assign :scriptfile, @options[:scriptfile]
+
+page[:setup].insert "Checking dependencies..."
+page << "
+try {
+  if (Prototype && SHA256 && Effect && LowPro && String.prototype.last && shacker) {
+    $('setup').insert('#{escape_javascript "success.<br/>".to_success}');
+  }
+} catch (e) {
+  $('setup').insert('#{escape_javascript "failure.".to_error}<br/><br/>');
+  $('setup').insert(e.toString() + '<br/><br/>Please load this Javascript first:<br/>' + scriptfile);
+  throw ('Could not verify dependencies.');
+};"
+
+page[:setup].insert "Send response to server..."
+page << remote_function(:url => {
+  :action => :respond,
+  :client => @options[:client],
+  :ip => request.remote_ip,
+  :only_path => false, },
+  404 => "$('setup').insert('#{escape_javascript "HTTP Error 404.".to_error}')",
+  :failure => "$('setup').insert('#{escape_javascript "HTTP Error ".to_error}' + request.status)",
+  :success => "$('setup').insert('#{escape_javascript "success.<br/>".to_success}'); alert('starting');"
+)
+
+
+#page[:setup].insert "Starting brute force..."
+
+#page[:status_label].update "<br><br>Passwords tried:"
+

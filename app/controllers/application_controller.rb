@@ -1,9 +1,7 @@
 class ApplicationController < ActionController::Base
-  helper :all # include all helpers, all the time
-  protect_from_forgery # See ActionController::RequestForgeryProtection for details
-
-  # Scrub sensitive parameters from your log
-  # filter_parameter_logging :password
+  
+  helper :all
+  protect_from_forgery
   
   before_filter :load_settings  
   
@@ -13,7 +11,7 @@ class ApplicationController < ActionController::Base
     flash[:notice] = nil # (Hack for Safari flash caching bugs)
     flash[:warning] = nil
     flash[:error] = nil
-    session[:settings] = Settings.new.read #unless session[:settings].is_a? Settings
+    session[:settings] = Settings.new.read
   end
   
 end

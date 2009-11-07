@@ -3,8 +3,9 @@ class Attack < ActiveRecord::Base
 
 
 
-  def self.in_progress?
-    find(:first) ? true : false
+  def self.position
+    return 0 unless result = find(:first, :order => 'position DESC')
+    result
   end
 
 end
