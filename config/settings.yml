@@ -1,58 +1,68 @@
 --- !ruby/object:Settings 
-alphas: &id001 
-  - a
-  - b
-  - c
-  - d
-  - e
-  - f
-  - g
-  - h
-  - i
-  - j
-  - k
-  - l
-  - m
-  - n
-  - o
-  - p
-  - q
-  - r
-  - s
-  - t
-  - u
-  - v
-  - w
-  - x
-  - y
-  - z
-  - A
-  - B
-  - C
-  - D
-  - E
-  - F
-  - G
-  - H
-  - I
-  - J
-  - K
-  - L
-  - M
-  - N
-  - O
-  - P
-  - Q
-  - R
-  - S
-  - T
-  - U
-  - V
-  - W
-  - X
-  - Y
-  - Z
-characters: *id001
+alphas: 
+- a
+- b
+- c
+- d
+- e
+- f
+- g
+- h
+- i
+- j
+- k
+- l
+- m
+- n
+- o
+- p
+- q
+- r
+- s
+- t
+- u
+- v
+- w
+- x
+- y
+- z
+- A
+- B
+- C
+- D
+- E
+- F
+- G
+- H
+- I
+- J
+- K
+- L
+- M
+- N
+- O
+- P
+- Q
+- R
+- S
+- T
+- U
+- V
+- W
+- X
+- Y
+- Z
+characters: 
+- "3"
+- "4"
+- "8"
+- "0"
+- "1"
+- "9"
+- "6"
+- "7"
+- "2"
+- "5"
 digits: 
 - "0"
 - "1"
@@ -64,7 +74,9 @@ digits:
 - "7"
 - "8"
 - "9"
-mode: alpha
+max: 4
+mix: 1
+mode: digit
 modes_semantic: 
 secret: "1000"
 specials: 
@@ -83,3 +95,7 @@ specials:
 - "-"
 - .
 - /
+- !binary |
+  wqc=
+
+- "="

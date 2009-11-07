@@ -15,7 +15,7 @@ module ApplicationHelper
     [:error, :warning, :notice].each do |msg|
       next if flash[msg].blank?
       result += javascript_tag update_page { |page|
-        page["flash-#{msg.to_s}"].visual_effect(:move, {:x => 0, :y => 50})
+        page["flash-#{msg.to_s}"].visual_effect(:move, {:x => 0, :y => browser == 'firefox' ? 0 : 50})
         page["flash-#{msg.to_s}"].appear
       }
       next if msg == :error
@@ -26,6 +26,17 @@ module ApplicationHelper
       }
     end
     result
+  end
+  
+  def browser
+    case request.env["HTTP_USER_AGENT"]
+    when /AppleWebKit/ then 'safari'
+    when /MSIE/ then 'ie'
+    when /Opear/ then 'opera'
+    when /Firefox/ then 'firefox'
+    else
+      'other'
+    end
   end
   
 end

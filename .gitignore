@@ -3,10 +3,8 @@ log/*.log
 log/*.pid
 db/*.db
 db/*.sqlite3
-db/schema.rb
 tmp/*
 tmp/**/*
 doc/api
 doc/app
-config/database.yml
 config/deploy.rb

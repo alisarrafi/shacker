@@ -10,8 +10,10 @@ class ApplicationController < ActionController::Base
   protected
   
   def load_settings
-    flash[:notice] = nil # (Bad hack for Safari flash caching bugs)
-    session[:settings] = Settings.new.read unless session[:settings].is_a? Settings
+    flash[:notice] = nil # (Hack for Safari flash caching bugs)
+    flash[:warning] = nil
+    flash[:error] = nil
+    session[:settings] = Settings.new.read #unless session[:settings].is_a? Settings
   end
   
 end

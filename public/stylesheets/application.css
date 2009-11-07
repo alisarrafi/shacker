@@ -19,11 +19,12 @@ div.container {
 
 div#flash-notice { background: #7f7; }
 div#flash-error { background: #c00; color: white; }
+div#flash-warning { background: #fb0; }
 div#flash-notice, div#flash-warning, div#flash-error {
   position: absolute;
   top: -50px;
   width: 500px;
-  left: 300px;
+  left: 100%;
   padding: 7px;
   line-height: 15px;
   border: 1px solid #000;
