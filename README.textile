@@ -1,1 +1,4 @@
-TODO
+h1. SHAcker
+
+Welcome! Soon there will be a documentation here.
+
