@@ -7,4 +7,5 @@ tmp/*
 tmp/**/*
 doc/api
 doc/app
+doc/README_FOR_APP
 config/deploy.rb
