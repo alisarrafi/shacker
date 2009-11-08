@@ -5,8 +5,6 @@ class String
   
   include ActionView::Helpers::JavaScriptHelper
   
-  
-  
   def hashed
     Digest::SHA2.hexdigest self
   end
