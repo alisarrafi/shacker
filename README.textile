@@ -1,3 +1,110 @@
-h1. ALPHA ALPHA ALPHA!
+h1. s h a c k e r
 
-Please come back later.
+An open-source distributed browser-based SHA-256 password brute force cracker.
+
+h2. History
+
+I heard of "distributed.net":http://distributed.net many years ago, and I remember having downloaded their client application every now and then to give them some of my CPU power. But getting new computers, etc., it didn't occur to me to re-install the client every time I got a new operating system. It just seemed a bit too much work to hassle with the installation, or their shell scripts, registrations, or whatever. And when I think of my grand-mother, she couldn't do it, because it was too complicated for her.
+
+Having worked in a small team at a university's Internet Security course, we came up with the idea to implement a browser-based distributed calculation project, to make it widely accessible (as everyone has a browser, you, too ;).
+
+So this is it! Shacker stands for _SHA_ and _hacker_. It's a Ruby on Rails application, which includes the server and client side. Each time somebody goes to the website, he receives a subset of calculations to perform from the server. The goal is to try every possible password to find out a given SHA-256 encrypted hash. Using JavaScript, the browser performs it's piece of the cake, and returns the solution if found (else it continues forever). It takes longer than any local high performance application, but you can reach far more people. The final idea is to include shacker in other websites (or e.g. Facebook widgets), to let people perform even tiny subset calculations without even noticing it.
+
+h2. Requirements
+
+* "Ruby on Rails":http://rubyonrails.com
+* A database like "SQLite":http://www.sqlite.org or MySQL or whatever runs with Ruby on Rails
+* The fantastic "formtastic":http://github.com/justinfrench/formtastic  gem
+* Optionally: "Git":http://git-scm.com to quickly download and update shacker frequently
+
+Note: If you have Mac OS X 10.5+, you just need git. 
+
+h2. Installation
+
+h3. 1. Get the application via git or the "download" button above
+
+<pre>
+  git clone git://github.com/funkensturm/shacker.git
+</pre>
+
+h3. 2. Configure your database
+
+Rename the file
+
+<pre>
+  config/database.yml.sample
+</pre>
+
+to
+
+<pre>
+  config/database.yml
+</pre>
+
+h3. 3. Shacker'it
+
+Then you can run the application with "Phusion Passenger":http://www.modrails.com (Passenger installs "Nginx":http://wiki.nginx.org or uses ol' "Apache":http://www.apache.org as web server).
+
+h2. Documentation
+
+As with any Cutting Edge thing, there is little documentation on the source code. You can of course run
+
+<pre>
+  rake doc:app
+</pre>
+
+in the application's root directory to generate the RDoc files in @/doc@, but there are not many helpful comments in the code. However, there is a full Unit Test for almost any used algorithm located in @/test@. There will be plenty documentation available soon in regards to the concept, the distribution strategy of the server, etc... As for now this is how it works:
+
+h3. Restrictions
+
+Currently shacker needs to know how long the password to crack is. Say, when we want to try every 5-character password, it's not going to try any 3 or 6-character passwords, etc. But really, this is just one method you would have to add yourself, and we might do it in the future. As for now, this is just a proof of concept!
+
+h3. Chunk distribution by the server
+
+Whenever we speak of a "chunk", we really just mean *one* password out of the large space of *all* possible passwords. Every client, which connects to the website will receive one chunk and then (all by itself) will try the next chunk, and the next chunk etc. So how does the server distribute chunks? Well, it looks something like this:
+
+<pre>
+  1           3           2              4
+  aa ab ac ad ae ba bb bc bd be ca cb cc cd ea eb ec ed
+        5           6              7           8
+     9     10    11    (and so on)
+</pre>
+
+The first client will receive the first possible password and try every other string from there one after the other. Meanwhile, the second client receives the chunk in the middle and will begin brute forcing from there. Every subsequent client receives a chunk "between" the other chucks that were handed out. It is similar to a divide-and-conquer algorithm.
+
+One advantage of this feature is that clients can come and go as they want, since the same chunk will be tested by another client sooner or later (much later in fact, but anyway). Lastly, if clients use maliciously manipulated JavaScripts, their results will be re-checked by other clients some time.
+
+The valid characters for a password are determined via an administrative settings website. It can set to any random characters and, in fact, any random order. I.e. the probability to find the password "aaa" equals the probability to find "zzz".
+
+h3. Client-side Brute Forcing
+
+What exactly will the clint do when it received a chunk? Well, as the client is informed about the valid character space etc., it will calculate the next chunk from the chunk it received. Say, transform "aaa" to "aab" or even "zzz" to "aaa". Remember that the characters and their order are arbitrary, so it could look like "4§/" to "4§(".
+
+Using JavaScript, each password will be SHA-256 encoded and compared to the given SHA-256 hash of the unknown password. Optionally a response will be send every X tries. Say, every 100,000 tries, the client sends a result response to the server.
+
+The server in return could decide to more efficiently distribute other chunks, or even re-distribute the same chunk, whenever a response is missing after a time-out. However, this distribution alteration feature is not implemented yet - the server simply saves the responses.
+
+h3. Usage
+
+Well, just run the web application and browse to it. Your browser will start brute forcing.
+
+You can edit and download the server configuration here:
+
+* www.your.url/settings
+* www.your.url/settings.yml
+* www.your.url/settings.json
+
+This will allow you to create your own cross-platform-widgets.
+
+Lastly, these are the needed JavaScript files. The first is just a library, the second is a controller to receive chunks.
+
+* www.your.url/shacker.js
+* www.your.url/load.js
+
+h3. Continuous Beta Warning
+
+There is still some heavy construction going on here, so stay tuned and don't expect something perfect :)
+
+h3. License
+
+This is an open-source project published under the MIT license, which is free for all to do whatever you want with it.
