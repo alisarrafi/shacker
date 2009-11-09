@@ -74,11 +74,11 @@ The first client will receive the first possible password and try every other st
 
 One advantage of this feature is that clients can come and go as they want, since the same chunk will be tested by another client sooner or later (much later in fact, but anyway). Lastly, if clients use maliciously manipulated JavaScripts, their results will be re-checked by other clients some time.
 
-The valid characters for a password are determined via an administrative settings website. It can set to any random characters and, in fact, any random order. I.e. the probability to find the password "aaa" equals the probability to find "zzz".
+The valid characters for a password are determined via an administrative settings website. It can set to any random characters and, in fact, any random order. I.e. the probability to find the password @aaa@ equals the probability to find @zzz@.
 
 h3. Client-side Brute Forcing
 
-What exactly will the clint do when it received a chunk? Well, as the client is informed about the valid character space etc., it will calculate the next chunk from the chunk it received. Say, transform "aaa" to "aab" or even "zzz" to "aaa". Remember that the characters and their order are arbitrary, so it could look like "4§/" to "4§(".
+What exactly will the clint do when it received a chunk? Well, as the client is informed about the valid character space etc., it will calculate the next chunk from the chunk it received. Say, transform @aaa@ to @aab@ or even @zzz@ to @aaa@. Remember that the characters and their order are arbitrary, so it could look like @4§/@ to @4§(@.
 
 Using JavaScript, each password will be SHA-256 encoded and compared to the given SHA-256 hash of the unknown password. Optionally a response will be send every X tries. Say, every 100,000 tries, the client sends a result response to the server.
 
