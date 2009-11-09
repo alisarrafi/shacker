@@ -1,3 +1,16 @@
+// Have a little spinner in the corner while loading Ajax requests
+Ajax.Responders.register({
+  onCreate: function(){
+	  $('busy').show();	
+  }, 
+  onComplete: function(){
+	  $('busy').hide();	
+  },
+	onFailure: function(transport) {
+	  $('busy').hide();	
+  }
+});
+
 // Centers the absolute div for flash messages
 function centerflash(id) {
   if (screen && screen.availWidth && $(id) && $('container')) {

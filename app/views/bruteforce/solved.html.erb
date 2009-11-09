@@ -1,0 +1,7 @@
+<h1 id="title">You found the password, but...</h1>
+
+Somebody else was faster than you. Sorry, <%= link_to 'try again.', :action => 'index' %>
+
+<%= javascript_tag update_page { |page|
+  page['container'].visual_effect(:highlight)
+}%>

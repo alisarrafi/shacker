@@ -1,0 +1,10 @@
+<h1 id="title">Congratulations!!!</h1>
+
+You found the password! It's <div id="solution"><h2><%= session[:settings].secret %></h2></div>
+
+Thank you for participating in our project.
+
+<%= javascript_tag update_page { |page|
+  page['container'].visual_effect(:shake)
+  page['container'].visual_effect(:highlight)
+}%>

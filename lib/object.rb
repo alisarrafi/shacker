@@ -2,6 +2,22 @@ require File.join(File.dirname(__FILE__), 'integer')
 
 class Object
   
+  def solve!(password)
+    File.new(SOLUTION_FILE, 'w') { |f| f.write password.to_s } if not_solved?
+  end
+  
+  def unsolve!
+    File.delete SOLUTION_FILE if solved?
+  end
+  
+  def solved?
+    File.exists? SOLUTION_FILE
+  end
+  
+  def not_solved?
+    !solved?
+  end
+  
   # Create a random string with uncapitalized chars a-z
   def random_string(length = 8)
     chars = ("a".."z").to_a

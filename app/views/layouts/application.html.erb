@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-  <title>shacker</title>
+  <title>s h a c k e r</title>
   <%= stylesheet_link_tag 'reset-min', 'application', 'formtastic', 'formtastic_changes', :cache => 'shacker' %>
   <%= javascript_include_tag 'prototype', 'effects', 'lowpro', 'helper', 'sha256', 'algorithm', :cache => 'shacker' %>
   <%#= javascript_include_tag 'test_helper' -%>
@@ -11,6 +11,7 @@
 <body>
 
   <div id="container" class="rounded_corners container">
+    <div id="busy" style="display:none;"><%= image_tag 'loading.gif'%></div>
     <%= yield %>
   </div>
   

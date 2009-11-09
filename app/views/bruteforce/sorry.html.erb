@@ -1,0 +1,7 @@
+<h1>Sorry, but...</h1>
+
+The password we are looking for has changed meanwhile. <%= link_to 'Try again.', :action => 'index' %>
+
+<%= javascript_tag update_page { |page|
+  page['container'].visual_effect(:highlight)
+}%>
