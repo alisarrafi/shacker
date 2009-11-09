@@ -1,5 +1,6 @@
 --- !ruby/object:Settings 
-alphas: 
+assumed: 100000
+characters: 
 - a
 - b
 - c
@@ -52,40 +53,7 @@ alphas:
 - X
 - Y
 - Z
-characters: &id001 
-  - "0"
-  - "1"
-  - "2"
-  - "3"
-  - "4"
-  - "5"
-  - "6"
-  - "7"
-  - "8"
-  - "9"
-digits: *id001
 max: 4
 mix: 0
-mode: digit
-modes_semantic: 
-secret: "3333"
-specials: 
-- "!"
-- "\""
-- "#"
-- $
-- "%"
-- "&"
-- "'"
-- (
-- )
-- "*"
-- +
-- ","
-- "-"
-- .
-- /
-- !binary |
-  wqc=
-
-- "="
+mode: alpha
+secret: test

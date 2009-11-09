@@ -2,29 +2,22 @@ require 'yaml'
 
 class Settings
     
-  attr_accessor :secret, :mode, :max, :mix
-  attr_reader :specials, :alphas, :digits, :modes_semantic, :characters
-    
-  @@modes = [['Only alphabetical characters', 'alpha'], ['Alphabetical characters and numbers', 'alnum'], ['Only numbers', 'digit'], ['Numbers, alphabetical and special characters', 'ascii']].freeze
+  attr_accessor :secret, :mode, :max, :mix, :assumed
+  attr_reader :characters
 
   def initialize
-    @max = 4
-    @mix = 1
-    @secret = 'test'
     @mode = 'ascii'
-    @alphas, @digits = [], []
-    @specials = ['!', '"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/', '§', '='].freeze
-    ('a'..'z').each { |char| @alphas << char.to_s }
-    ('A'..'Z').each { |char| @alphas << char.to_s }
-    (0..9).each { |digit| @digits << digit.to_s }
-    @alphas.freeze
-    @digits.freeze
+    @secret = 'test'
+    @max = 4
+    @assumed = 100000
+    @mix = 1
     @characters = character_space.shuffle
   end
-
+  
+  # Loading settings from settings.yml
   def read
     settings = YAML.load_file SETTINGS_FILE
-    [:secret, :mode, :specials, :alphas, :digits, :modes_semantic, :characters, :max, :mix].each { |attribute| instance_eval "@#{attribute.to_s} = settings.#{attribute.to_s}" }
+    [:secret, :mode, :max, :mix, :characters, :assumed].each { |attribute| instance_eval "@#{attribute.to_s} = settings.#{attribute.to_s}" }
     self
   end
   
@@ -36,10 +29,10 @@ class Settings
   
   def character_space
     case @mode
-      when 'alpha' then @alphas
-      when 'alnum' then @alphas + @digits
-      when 'digit' then @digits
-      when 'ascii' then @alphas + @digits + @specials
+      when 'alpha' then ALPHA
+      when 'alnum' then ALPHA + DIGITS
+      when 'digit' then DIGITS
+      when 'ascii' then ALPHA + DIGITS + SPECIAL_CHARS
     end
   end
   
@@ -48,7 +41,7 @@ class Settings
       when 'alpha' then 'a-z'
       when 'alnum' then 'A-Z a-z 0-9'
       when 'digit' then '0-9'
-      when 'ascii' then 'A-Z a-z 0-9 ' + @specials.join(' ')
+      when 'ascii' then 'A-Z a-z 0-9 ' + SPECIAL_CHARS.join(' ')
     end
   end
   
@@ -58,13 +51,14 @@ class Settings
       when 'alpha' then !(@secret =~ /[^a-zA-Z]/)
       when 'alnum' then !(@secret =~ /[^a-zA-Z0-9]/)
       when 'digit' then !(@secret =~ /[^0-9]/)
-      when 'ascii' then !(@secret =~ Regexp.new('[^a-zA-Z0-9' + Regexp.escape(@specials.join) + ']'))
+      when 'ascii' then !(@secret =~ Regexp.new('[^a-zA-Z0-9' + Regexp.escape(SPECIAL_CHARS.join) + ']'))
     end    
   end
     
-  def self.modes; @@modes end
   def self.maxes; (1..10).map { |i| [i, i] } end
   def self.mixes; [["Yes", 1], ["No", 0]] end
+  
+  # For formtastic only
   def id; 1 end
   def new_record?; false end
   def self.human_name; "Settings" end

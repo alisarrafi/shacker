@@ -2,9 +2,10 @@
 
 <% semantic_form_for session[:settings], :url => {:action => action_name} do |f| %>
   <% f.inputs do %>
-    <%= f.input :mode, :as => :select, :collection => Settings.modes, :include_blank => false, :hint => 'Which mode do we apply?', :required => false %>
+    <%= f.input :mode, :as => :select, :collection => MODES, :include_blank => false, :hint => 'Which mode do we apply?', :required => false %>
     <%= f.input :secret, :hint => "The password to be cracked. Currently allowed characters: <br/><tt>#{session[:settings].character_space_short}</tt>", :required => false %>
-    <%= f.input :max, :as => :select, :collection => Settings.maxes, :include_blank => false, :hint => "The maximum number of characters in the password that we will assume. <br/>Current realm: #{(session[:settings].characters.size ** session[:settings].max)}", :required => false %>
+    <%= f.input :max, :label => 'Length', :as => :select, :collection => Settings.maxes, :include_blank => false, :hint => "The number of characters in the password that we will specifically assume. <br/>Current realm: #{number_with_delimiter @realm}", :required => false %>
+    <%= f.input :assumed, :label => 'Respond', :hint => "After how many tried password should the client send a response?<br/>The current password realm indicates that we need #{number_with_delimiter(@realm / session[:settings].assumed.round)} clients.", :required => false %>
     <%= f.input :mix, :as => :select, :collection => Settings.mixes, :include_blank => false, :hint => "Should we use a randomly sorted character space for brute force? This is the current order: <br/><tt>#{session[:settings].characters.join(' ')}</tt>" , :required => false %>
   <% end %>
   <%= f.buttons %>

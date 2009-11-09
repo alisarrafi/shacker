@@ -4,11 +4,14 @@ class BruteforceController < ApplicationController
   end
 
   def load
+    position = Attack.position
     @options = {}
     @options[:realm] = session[:settings].characters.size ** session[:settings].max
-    @options[:client] = Attack.position
+    @options[:client] = position
     @options[:offset] = @options[:realm].offset @options[:client]
     @options[:scriptfile] = url_for(:action => nil) + 'javascripts/shacker.js'
+    @options[:chunk] = chunk :offset => position, :length => session[:settings].max, :characters => session[:settings].characters
+    @options[:last_chunk] = chunk :offset => @options[:realm], :length => session[:settings].max, :characters => session[:settings].characters
     respond_to do |format|
       format.js
     end
@@ -35,6 +38,7 @@ class BruteforceController < ApplicationController
         flash[:warning] = 'Please provide a valid password according to the selected mode.'
       end
     end
+    @realm = session[:settings].characters.size ** session[:settings].max
     respond_to do |format|
       format.html
       format.json { render :json => session[:settings].to_json }

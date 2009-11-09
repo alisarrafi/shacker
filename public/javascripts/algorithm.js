@@ -32,4 +32,12 @@ function report(password) {
   alert('I found it: ' + password);
 }
 
+function centerflash(id) {
+  if (screen && screen.availWidth && $(id) && $('container')) {
+    containerleft = $('container').makePositioned().cumulativeOffset($(id)).first();
+    containerwidth = $('container').getDimensions()['width'];
+    $(id).setStyle({left: (containerleft + (containerwidth - $(id).getDimensions()['width']) / 2) + "px"});
+  }
+}
+
 

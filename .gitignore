@@ -9,3 +9,5 @@ doc/api
 doc/app
 doc/README_FOR_APP
 config/deploy.rb
+public/stylesheets/shacker.css
+public/javascripts/shacker.js

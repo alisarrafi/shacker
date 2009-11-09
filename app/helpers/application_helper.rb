@@ -15,6 +15,7 @@ module ApplicationHelper
     [:error, :warning, :notice].each do |msg|
       next if flash[msg].blank?
       result += javascript_tag update_page { |page|
+        page.call 'centerflash', "flash-#{msg.to_s}"
         page["flash-#{msg.to_s}"].visual_effect(:move, {:x => 0, :y => browser == 'firefox' ? 0 : 50})
         page["flash-#{msg.to_s}"].appear
       }

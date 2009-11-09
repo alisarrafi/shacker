@@ -4,6 +4,7 @@ page.assign :characters, session[:settings].characters
 page.assign :realm, @options[:realm]
 page.assign :offset, @options[:offset]
 page.assign :chunk, @options[:chunk]
+page.assign :last_chunk, @options[:last_chunk]
 page.assign :scriptfile, @options[:scriptfile]
 
 page[:setup].insert "Checking dependencies..."
