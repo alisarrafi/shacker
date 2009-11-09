@@ -53,7 +53,7 @@ characters:
 - X
 - Y
 - Z
-max: 4
+max: 3
 mix: 0
 mode: alpha
-secret: test
+secret: ccc

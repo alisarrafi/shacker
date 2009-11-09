@@ -46,7 +46,7 @@ class Settings
   end
   
   def valid_secret?
-    return false if @secret.empty?
+    return false if @secret.empty? or @secret.size != @max
     case @mode
       when 'alpha' then !(@secret =~ /[^a-zA-Z]/)
       when 'alnum' then !(@secret =~ /[^a-zA-Z0-9]/)

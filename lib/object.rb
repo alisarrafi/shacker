@@ -2,6 +2,12 @@ require File.join(File.dirname(__FILE__), 'integer')
 
 class Object
   
+  # Create a random string with uncapitalized chars a-z
+  def random_string(length = 8)
+    chars = ("a".."z").to_a
+    Array.new(length, '').collect{chars[rand(chars.length)]}.join
+  end
+  
   def chunk(options = {})
     config = { :offset => 0, :characters => [], :length => 0 }
     config.update(options) if options.is_a? Hash

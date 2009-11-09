@@ -11,6 +11,7 @@ class BruteforceController < ApplicationController
     @options[:offset] = @options[:realm].offset @options[:client]
     @options[:scriptfile] = url_for(:action => nil) + 'javascripts/shacker.js'
     @options[:chunk] = chunk :offset => position, :length => session[:settings].max, :characters => session[:settings].characters
+    @options[:first_chunk] = chunk :offset => 1, :length => session[:settings].max, :characters => session[:settings].characters
     @options[:last_chunk] = chunk :offset => @options[:realm], :length => session[:settings].max, :characters => session[:settings].characters
     respond_to do |format|
       format.js
@@ -22,6 +23,7 @@ class BruteforceController < ApplicationController
   end
   
   def solution    
+    render :text => 'OK'
   end
 
   def settings
@@ -35,44 +37,15 @@ class BruteforceController < ApplicationController
         session[:settings] = session[:settings].save
         flash[:notice] = 'Settings saved.'
       else
-        flash[:warning] = 'Please provide a valid password according to the selected mode.'
+        flash[:error] = 'Please provide a valid password according to the selected <b>mode</b> and <b>length</b>.'
       end
     end
     @realm = session[:settings].characters.size ** session[:settings].max
     respond_to do |format|
       format.html
       format.json { render :json => session[:settings].to_json }
+      format.yml { render :text => session[:settings].to_yaml }
     end
   end
-  
-  #def chunks
-  #  @chunks = []
-  #  string = ' '
-  #  4000.times do |i|
-  #    string = string.succ
-  #    @chunks << string
-  #  end
-  #  respond_to do |format|
-  #    format.html { render :text => @chunks.inspect }
-  #    format.js   { render :js => "chunks = #{@chunks.to_js_array};" }
-  #    format.json { render :json => @chunks.to_json }
-  #  end
-  #end
-  
-  #def characters
-  #  respond_to do |format|
-  #    format.html { render :text => session[:settings].characters, :content_type => 'text/plain' }
-  #    format.json { render :json => session[:settings].characters.to_json }
-  #    format.js   { render :js => "characters = #{session[:settings].characters.to_js_array};" }
-  #  end
-  #end
-  #
-  #def secret
-  #  respond_to do |format|
-  #    format.html { render :text => session[:settings].secret.hashed, :content_type => 'text/plain' }
-  #    format.json { render :json => session[:settings].secret.hashed.to_json }
-  #    format.js   { render :js => "secret = '#{session[:settings].secret.hashed}';" }
-  #  end
-  #end
- 
+
 end
