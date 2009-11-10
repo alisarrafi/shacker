@@ -12,5 +12,3 @@ doc/app
 doc/README_FOR_APP
 config/deploy.rb
 config/database.yml
-public/stylesheets/shacker.css
-public/javascripts/shacker.js
