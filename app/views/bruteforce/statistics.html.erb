@@ -9,7 +9,7 @@
       <% total_progress = 0 %>
       <% for progress in @progress do %>
         <% left = ((progress.xoffset.to_i * 10) / @realm).to_i %>
-        <% width = ((progress.response.to_i * 10) / @realm).to_i %>
+        <% width = ((progress.response.to_i * 1000) / @realm).to_i %>
         <%= image_tag 'progress.gif', :style => "padding-left: #{left - total_progress}px; height: 27px; width: #{width}px; margin-left:40px;" %>
         <% total_progress += (left + width) %>
         
