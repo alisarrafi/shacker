@@ -1,19 +1,20 @@
 <div id="statistics">
 <h1>Statistics</h1>
 
-<div>
-  <div class="tcol attack id"><%= link_to 'ID', :sort => 'id', :updown => other_updown %></div>
-  <div class="tcol attack position"><%= link_to 'Pos.', :sort => 'position', :updown => other_updown %></div>
-  <div class="tcol attack offset"><%= link_to 'Offset', :sort => 'offset', :updown => other_updown %></div>
-  <div class="tcol attack chunk"><%= link_to 'Chunk', :sort => 'chunk', :updown => other_updown %></div>
-  <div class="tcol attack client"><%= link_to 'Client', :sort => 'client', :updown => other_updown %></div>
-  <div class="tcol attack created_at"><%= link_to 'Created', :sort => 'created_at', :updown => other_updown %></div>
-  <div class="tcol attack updated_at"><%= link_to 'Updated', :sort => 'updated_at', :updown => other_updown %></div>
-  <div class="tcol attack response"><%= link_to 'Response', :sort => 'response', :updown => other_updown %></div>
-  <div class="tcol attack timespan">Elapsed time</div>
-</div>
+<% if @attacks.size > 0 %>
 
-<% if @attacks %>
+  <div>
+    <div class="tcol attack id"><%= link_to 'ID', :sort => 'id', :updown => other_updown %></div>
+    <div class="tcol attack position"><%= link_to 'Pos.', :sort => 'position', :updown => other_updown %></div>
+    <div class="tcol attack offset"><%= link_to 'Offset', :sort => 'offset', :updown => other_updown %></div>
+    <div class="tcol attack chunk"><%= link_to 'Chunk', :sort => 'chunk', :updown => other_updown %></div>
+    <div class="tcol attack client"><%= link_to 'Client', :sort => 'client', :updown => other_updown %></div>
+    <div class="tcol attack created_at"><%= link_to 'Created', :sort => 'created_at', :updown => other_updown %></div>
+    <div class="tcol attack updated_at"><%= link_to 'Updated', :sort => 'updated_at', :updown => other_updown %></div>
+    <div class="tcol attack response"><%= link_to 'Response', :sort => 'response', :updown => other_updown %></div>
+    <div class="tcol attack timespan">Elapsed time</div>
+  </div>
+
   <% for attack in @attacks do %>
 
     <div id="<%= attack.id %>" style="clear:both;">
