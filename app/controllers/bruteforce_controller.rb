@@ -18,7 +18,7 @@ class BruteforceController < ApplicationController
       @options = default_client_options Attack.increment_position!
     else
       @options = default_client_options(position = Attack.count + 1, random_string)
-      last = Attack.create :position => @options[:position], :chunk => @options[:chunk], :offset => @options[:offset], :client => @options[:client]
+      last = Attack.create :position => @options[:position], :chunk => @options[:chunk], :xoffset => @options[:offset], :client => @options[:client]
     end
     if params[:option] == 'facebook'
       @options[:status_interval] = 5
@@ -60,6 +60,8 @@ class BruteforceController < ApplicationController
     end
     session[:updown] = 'DESC' unless session[:updown].to_s == 'ASC' or session[:updown].to_s == 'DESC'
     @attacks = Attack.find(:all, :order => order + ' ' + session[:updown], :limit => 400)
+    @progress = Attack.find(:all, :conditions => ["response"], :order => 'xoffset ASC', :limit => 400)
+    @realm = session[:settings].characters.size.to_i ** session[:settings].max.to_i
     render :layout => 'status'
   end
   

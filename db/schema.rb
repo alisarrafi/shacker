@@ -13,7 +13,7 @@ ActiveRecord::Schema.define(:version => 20091107012743) do
 
   create_table "attacks", :force => true do |t|
     t.string   "chunk"
-    t.integer  "offset"
+    t.integer  "xoffset"
     t.integer  "position"
     t.integer  "response"
     t.string   "client"

@@ -12,7 +12,7 @@
 <body style="margin:0;">
 
   <div id="busy" style="display:none;"><%= image_tag 'loading.gif'%></div>
-  <div style="float:right; margin:30px;"><%= link_to 'Settings panel &raquo;', :action => 'settings' %></div>
+  <div class="cornerlink"><%= link_to 'Settings panel &raquo;', :action => 'settings' %></div>
 
   <%= yield %>
   

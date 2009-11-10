@@ -55,7 +55,7 @@ function shacker() {
 // Updating the <div id="status"></div>
 function status() {
   if (!$('status')) return;
-  $('status').update(": " + counter + " " + (counter / realm) + "% " + first_chunk + "-" + chunk);
+  $('status').update(": " + counter + " " + ((counter / realm) * 100).toPrecision(8) + "% " + init_chunk + "-" + chunk);
 }
 
 // Send interval report

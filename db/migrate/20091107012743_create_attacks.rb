@@ -2,7 +2,7 @@ class CreateAttacks < ActiveRecord::Migration
   def self.up
     create_table :attacks do |t|
       t.string :chunk
-      t.integer :offset
+      t.integer :xoffset
       t.integer :position
       t.integer :response
       t.string :client

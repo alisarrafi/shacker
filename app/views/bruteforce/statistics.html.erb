@@ -1,4 +1,23 @@
-<div id="statistics">
+<div id="statistics" style="clear:both">
+
+  <div id="barlabel">
+    <div style="float:left">1</div>
+    <div style="float:right"><%= @realm.to_delimiter_s %></div>
+  </div>
+  <div id="bar">
+    <% if @progress.size > 0 %>
+      <% total_progress = 0 %>
+      <% for progress in @progress do %>
+        <% left = ((progress.xoffset.to_i * 10) / @realm).to_i %>
+        <% width = ((progress.response.to_i * 10) / @realm).to_i %>
+        <%= image_tag 'progress.gif', :style => "padding-left: #{left - total_progress}px; height: 27px; width: #{width}px; margin-left:40px;" %>
+        <% total_progress += (left + width) %>
+        
+      <% end %>
+    <% end %>
+  </div>
+  
+<br>
 <h1>Statistics</h1>
 
 <% if @attacks.size > 0 %>
@@ -20,7 +39,7 @@
     <div id="<%= attack.id %>" style="clear:both;">
       <div class="attack id"><%= attack.id %></div>
       <div class="attack position"><%= attack.position %></div>
-      <div class="attack offset"><%= attack.offset %></div>
+      <div class="attack offset"><%= attack.xoffset %></div>
       <div class="attack chunk"><tt><%= attack.chunk %></tt></div>
       <div class="attack client"><%= attack.client %></div>
       <div class="attack created_at"><%= attack.created_at.to_s(:db) %></div>
@@ -37,4 +56,4 @@
 </div>
 
 <%#= javascript_tag update_page { |page| page["statistics"].visual_effect(:highlight) } %>
-<%= javascript_tag update_page { |page| page.delay(5) { page.reload } } %>
+<%= javascript_tag update_page { |page| page.delay(10) { page.reload } } %>
