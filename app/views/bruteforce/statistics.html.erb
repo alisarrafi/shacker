@@ -13,20 +13,22 @@
   <div class="tcol attack timespan">Elapsed time</div>
 </div>
 
-<% for attack in @attacks do %>
+<% if @attacks %>
+  <% for attack in @attacks do %>
 
-  <div id="<%= attack.id %>" style="clear:both;">
-    <div class="attack id"><%= attack.id %></div>
-    <div class="attack position"><%= attack.position %></div>
-    <div class="attack offset"><%= attack.offset %></div>
-    <div class="attack chunk"><tt><%= attack.chunk %></tt></div>
-    <div class="attack client"><%= attack.client %></div>
-    <div class="attack created_at"><%= attack.created_at.to_s(:db) %></div>
-    <div class="attack updated_at"><%= attack.updated_at.to_s(:db) %></div>
-    <div class="attack response"><%= attack.response %></div>
-    <div class="attack timespan"><%= attack.timespan.to_s + 's' if attack.timespan > 0 %></div>
-  </div>
+    <div id="<%= attack.id %>" style="clear:both;">
+      <div class="attack id"><%= attack.id %></div>
+      <div class="attack position"><%= attack.position %></div>
+      <div class="attack offset"><%= attack.offset %></div>
+      <div class="attack chunk"><tt><%= attack.chunk %></tt></div>
+      <div class="attack client"><%= attack.client %></div>
+      <div class="attack created_at"><%= attack.created_at.to_s(:db) %></div>
+      <div class="attack updated_at"><%= attack.updated_at.to_s(:db) %></div>
+      <div class="attack response"><%= attack.response %></div>
+      <div class="attack timespan"><%= attack.timespan.to_s + 's' if attack.timespan > 0 %></div>
+    </div>
   
+  <% end %>
 <% end %>
 
 <div style="clear:both"></div>
