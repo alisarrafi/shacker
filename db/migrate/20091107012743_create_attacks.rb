@@ -5,6 +5,7 @@ class CreateAttacks < ActiveRecord::Migration
       t.integer :offset
       t.integer :position
       t.integer :response
+      t.timestamps
     end
   end
 
