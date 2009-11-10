@@ -35,11 +35,15 @@ div#busy { float:right; }
 
 /* Admin */
 
+div.cornerlink { float:right; padding: 10px 20px 0 0px; }
+div#barlabel { height: 15px; width:1000px; margin:0; }
+div#bar { clear:both; width:1000px; height:27px; border: 1px solid #ccc; padding:0; margin:;}
+
 input#reset_settings { color: red; }
-div#statistics { padding: 30px; }
-div.tcol {font-weight: bold;}
-div.attacks { width: 900px; background-color: yellow;}
-div.attack { float:left }
+div#statistics { padding-top: 0; padding-left: 30px; margin:0; }
+div.tcol       { font-weight: bold; }
+div.attacks    { width: 900px; background-color: yellow;}
+div.attack     { float:left }
 div.id         { width: 34px; }
 div.position   { width: 34px; }
 div.offset     { width: 80px; }
