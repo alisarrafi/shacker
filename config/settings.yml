@@ -56,5 +56,5 @@ characters:
 - Z
 max: 3
 mix: 0
-mode: normal
-secret: ggg
+mode: demo
+secret: sha
