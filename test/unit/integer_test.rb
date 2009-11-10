@@ -23,13 +23,6 @@ class IntegerTest < ActiveSupport::TestCase
     assert_equal 0, -999.overlap(0)
   end
   
-  test "to_positive_i" do
-    assert 0.methods.include? 'to_positive_i'
-    assert_equal 100, -100.to_positive_i
-    assert_equal 1, 0.to_positive_i
-    assert_equal 100, 100.to_positive_i
-  end
-  
   test "max_in_row" do
     assert 0.methods.include? 'max_in_row'
     assert_equal 0, -1.max_in_row

@@ -88,7 +88,7 @@ h3. Usage
 
 Well, just run the web application and browse to it. Your browser will start brute forcing.
 
-You can edit and download the server configuration here:
+You can edit and download the server configuration and see statistics here:
 
 * www.your.url/settings
 * www.your.url/settings.yml
@@ -99,7 +99,11 @@ This will allow you to create your own cross-platform-widgets.
 Lastly, these are the needed JavaScript files. The first is just a library, the second is a controller to receive chunks.
 
 * www.your.url/shacker.js
-* www.your.url/load.js
+
+If you want to create your own widgets, you need to add one of these preset chunk controllers:
+
+* www.your.url/client.js
+* www.your.url/facebook.js
 
 h3. Continuous Beta Warning
 
@@ -107,4 +111,4 @@ There is still some heavy construction going on here, so stay tuned and don't ex
 
 h3. License
 
-This is an open-source project published under the MIT license, which is free for all to do whatever you want with it.
+This is an open-source project published under the MIT License, which is free for all to do whatever you want with it.

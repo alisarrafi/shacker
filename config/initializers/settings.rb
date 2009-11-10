@@ -1,10 +1,14 @@
 SETTINGS_FILE = File.join Rails.root, 'config', 'settings.yml'
 SOLUTION_FILE = File.join Rails.root, 'tmp', 'solution.txt'
 
-MODES = [['Only alphabetical characters', 'alpha'],
-        ['Alphabetical characters and numbers', 'alnum'],
-        ['Only numbers', 'digit'],
-        ['Numbers, alphabetical and special characters', 'ascii']]
+CHARACTER_SPACES = [['Only alphabetical characters', 'alpha'],
+                   ['Alphabetical characters and numbers', 'alnum'],
+                   ['Only numbers', 'digit'],
+                   ['Numbers, alphabetical and special characters', 'ascii']]
+
+MODES = [['Normal mode', 'normal'],
+        ['Demo mode (no solutions, no database)', 'demo'],
+        ['Mass mode (no client response evaluation but highly scalable)', 'mass']]
 
 SPECIAL_CHARS = ["!", "\"", "#", "$", "%", "&", "'", "(", ")", "*", "+", ", ", "-", ".", "/", "="]
 
@@ -14,3 +18,8 @@ ALPHA = ALPHA_DOWN + ALPHA_CAP
 
 DIGITS    = ['0','1','2','3','4','5','6','7','8','9']
 
+JAVASCRIPTS = ['prototype', 'effects', 'lowpro', 'helper', 'sha256', 'algorithm']
+
+PRESETS = [['client', 'For our own HTML interface'], ['facebook', 'A low-duty version for Facebook profiles']]
+
+solve! # We don't want everything to begin unless via settings

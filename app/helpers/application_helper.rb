@@ -1,5 +1,9 @@
 module ApplicationHelper
 
+  def other_updown
+    session[:updown] == 'DESC' ? 'ASC' : 'DESC'
+  end
+
   def extend_flash_messages
     [:notice, :warning, :error].each do |msg|
       next if flash[msg].blank?
@@ -38,6 +42,26 @@ module ApplicationHelper
     else
       'other'
     end
+  end
+  
+  def test_scripts
+    ["      " + url_for(:action => nil, :only_path => false) + "javascripts/test_helper.js"]
+  end
+  
+  def javascripts
+    result = []
+    JAVASCRIPTS.each { |script| result << "      " + url_for(:action => nil, :only_path => false) + "javascripts/#{script}.js" }
+    result
+  end
+  
+  def presets
+    result = []
+    PRESETS.each { |preset| result << "      " + url_for(:action => nil, :only_path => false) + "#{preset.first}.js".ljust(longest_preset + 10) + "(#{preset.last})" }
+    result
+  end
+  
+  def longest_preset
+    PRESETS.max { |a,b| a.first.length <=> b.first.length }.first.size
   end
   
 end

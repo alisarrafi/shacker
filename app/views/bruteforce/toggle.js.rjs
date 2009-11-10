@@ -1,0 +1,11 @@
+if solved?
+  msg = 'Begin challenge'
+  color = 'green'
+else
+  msg = 'Stop current challenge'
+  color = 'red'
+end  
+
+page[:toggle_solved].value = msg
+page[:toggle_solved].disabled = false
+page[:toggle_solved].setStyle("color: #{color}")

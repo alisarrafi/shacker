@@ -11,8 +11,8 @@ body { margin-top: 50px; }
 div#container {
   width: 600px;
   margin: 0 auto;
-	padding: 10px;
-	background: #eee;
+  padding: 10px;
+  background: #eee;
 }
 
 div#solution {
@@ -23,6 +23,23 @@ div#solution {
 
 span#status { word-spacing:2em; }
 div#busy { float:right; }
+
+/* Admin */
+
+input#reset_settings { color: red; }
+div#statistics { padding: 30px; }
+div.tcol {font-weight: bold;}
+div.attacks { width: 900px; background-color: yellow;}
+div.attack { float:left }
+div.id         { width: 34px; }
+div.position   { width: 34px; }
+div.offset     { width: 80px; }
+div.chunk      { width: 70px; }
+div.client     { width: 80px; }
+div.created_at { width: 140px; }
+div.updated_at { width: 140px; }
+div.response   { font-weight: bold; width: 70px;}
+div.timespan   { font-weight: bold; }
 
 /* Flash messages */
 
@@ -44,23 +61,23 @@ div#flash-notice, div#flash-warning, div#flash-error {
 /* CSS Corners */
 
 div.rounded_corners {
-	border: 1px solid #000;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
+  border: 1px solid #000;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
 }
  
 div.rounded_top_corners {
-	border: 1px solid #000;
-	-moz-border-radius-topleft: 10px;
-	-webkit-border-top-left-radius: 10px;
-	-moz-border-radius-topright: 10px;
-	-webkit-border-top-right-radius: 10px;
+  border: 1px solid #000;
+  -moz-border-radius-topleft: 10px;
+  -webkit-border-top-left-radius: 10px;
+  -moz-border-radius-topright: 10px;
+  -webkit-border-top-right-radius: 10px;
 }
  
 div.rounded_bottom_corners {
-	border: 1px solid #000;
-	-moz-border-radius-bottomleft: 10px;
-	-webkit-border-bottom-left-radius: 10px;
-	-moz-border-radius-bottomright: 10px;
-	-webkit-border-bottom-right-radius: 10px;
+  border: 1px solid #000;
+  -moz-border-radius-bottomleft: 10px;
+  -webkit-border-bottom-left-radius: 10px;
+  -moz-border-radius-bottomright: 10px;
+  -webkit-border-bottom-right-radius: 10px;
 }

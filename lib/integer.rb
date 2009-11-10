@@ -8,10 +8,6 @@ class Integer
     result
   end
   
-  def to_positive_i
-    self == 0 ? 1 : self.abs
-  end
-  
   def positions_in_row
     return 0 if self <= 0
     return 2 if self <= 4

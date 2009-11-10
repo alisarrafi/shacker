@@ -1,0 +1,37 @@
+<div id="statistics">
+<h1>Statistics</h1>
+
+<div>
+  <div class="tcol attack id"><%= link_to 'ID', :sort => 'id', :updown => other_updown %></div>
+  <div class="tcol attack position"><%= link_to 'Pos.', :sort => 'position', :updown => other_updown %></div>
+  <div class="tcol attack offset"><%= link_to 'Offset', :sort => 'offset', :updown => other_updown %></div>
+  <div class="tcol attack chunk"><%= link_to 'Chunk', :sort => 'chunk', :updown => other_updown %></div>
+  <div class="tcol attack client"><%= link_to 'Client', :sort => 'client', :updown => other_updown %></div>
+  <div class="tcol attack created_at"><%= link_to 'Created', :sort => 'created_at', :updown => other_updown %></div>
+  <div class="tcol attack updated_at"><%= link_to 'Updated', :sort => 'updated_at', :updown => other_updown %></div>
+  <div class="tcol attack response"><%= link_to 'Response', :sort => 'response', :updown => other_updown %></div>
+  <div class="tcol attack timespan">Elapsed time</div>
+</div>
+
+<% for attack in @attacks do %>
+
+  <div id="<%= attack.id %>" style="clear:both;">
+    <div class="attack id"><%= attack.id %></div>
+    <div class="attack position"><%= attack.position %></div>
+    <div class="attack offset"><%= attack.offset %></div>
+    <div class="attack chunk"><tt><%= attack.chunk %></tt></div>
+    <div class="attack client"><%= attack.client %></div>
+    <div class="attack created_at"><%= attack.created_at.to_s(:db) %></div>
+    <div class="attack updated_at"><%= attack.updated_at.to_s(:db) %></div>
+    <div class="attack response"><%= attack.response %></div>
+    <div class="attack timespan"><%= attack.timespan.to_s + 's' if attack.timespan > 0 %></div>
+  </div>
+  
+<% end %>
+
+<div style="clear:both"></div>
+  <%= "<br>Note that only 400 entries are shown." if @attacks.size > 20 %>
+</div>
+
+<%= javascript_tag update_page { |page| page["headline"].visual_effect(:highlight) } %>
+<%= javascript_tag update_page { |page| page.delay(5) { page.reload } } %>

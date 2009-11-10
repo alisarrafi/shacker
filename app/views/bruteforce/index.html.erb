@@ -2,7 +2,7 @@
 <span id="setup">Connecting to server... </span><span id="status_label"></span><span id="status"></span>
 
 <%= javascript_tag remote_function(
-  :url => {:action => 'load.js', :only_path => false },
+  :url => {:action => 'client.js', :only_path => false },
   404 => "$('setup').insert('#{escape_javascript "HTTP Error 404.".to_error}')",
   :failure => "$('setup').insert('#{escape_javascript "failure.<br/><br/>".to_error}Reason: HTTP Error' + request.status)",
   :success => "$('setup').insert('#{escape_javascript "success.<br/>".to_success}')"

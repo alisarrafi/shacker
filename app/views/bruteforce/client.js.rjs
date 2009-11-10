@@ -1,0 +1,61 @@
+page << "/*  
+   Welcome to the shacker project                     http://github.com/funkensturm/shacker
+
+   When you read this you are probably a developer. Great! Thank you for your participation.
+   When building a shacker widget, you first need to load the library COLLECTION located at:
+   
+      #{@options[:script_url]}
+   
+   NOTE: If you already have one of the libraries included in your code (i.e. Prototype,
+   Scriptaculous Effects, LowPro, SHA256), you may just load the ones that you are missing
+   in the following order:
+
+#{javascripts.join "\n" }
+
+   After that, you have to include THIS JavaScript file to start the brute force. For
+   different purposes we offer different versions of it:
+
+#{presets.join "\n" }
+
+   You can override any default settings that are listed below, but we recommend our presets.
+   When you load the shacker.js library, you will receive all algorithms you need to perform
+   the brute force. It will be initiated by the start_shacker() function, as you can see in the
+   very end of THIS file!
+   
+   You can override start_shacker() in your own widget to perform some extra things if you want.
+   Lastly, there are some self-made test methods available:
+   
+#{test_scripts.join "\n" }   
+   
+   If you have any questions, please feel free to contact us. Thank you!
+
+*/"
+
+# Loading variables
+@options.each do |key, variable|
+  if @descriptions.has_key? key
+    page << "\n/* " + @descriptions[key].gsub("\n", "\n   ") + " */"
+  end
+  page.assign key, variable
+end
+
+# Checking whether shacker.js was loaded
+page[:setup].insert "Checking dependencies... "
+page << "
+try {
+  if (Prototype && SHA256 && Effect && LowPro && String.prototype.last && shacker) {
+    $('setup').insert('#{escape_javascript "success.<br/>".to_success}');
+  }
+} catch (e) {
+  $('setup').insert('#{escape_javascript "failure.<br/>".to_error}<br/>Reason: ' + e);
+  $('setup').insert('<br/>Make sure you have <b>#{escape_javascript @options[:script_url].to_error}</b> loaded!');
+  throw ('Could not verify dependencies.');
+};"
+
+# Updating divs
+start = page[:setup].insert "Starting brute force with client " + "ID #{@options[:client]}".to_success + "..."
+start = page[:status_label].update "<br><br>Passwords tried"
+
+# Starting brute force
+page << "\n/* FINALLY! Let's start the script. */"
+page.call "start_shacker"

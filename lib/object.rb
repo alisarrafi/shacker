@@ -1,9 +1,12 @@
 require File.join(File.dirname(__FILE__), 'integer')
+require 'action_view/helpers/number_helper'
 
 class Object
   
-  def solve!(password)
-    File.new(SOLUTION_FILE, 'w') { |f| f.write password.to_s } if not_solved?
+  include ActionView::Helpers::NumberHelper
+  
+  def solve!(password='')
+    File.open(SOLUTION_FILE, 'w') { |f| f.write password.to_s }
   end
   
   def unsolve!
@@ -14,8 +17,21 @@ class Object
     File.exists? SOLUTION_FILE
   end
   
+  def unsolved?
+    !solved?
+  end
+  
   def not_solved?
     !solved?
+  end
+  
+  def to_positive_i
+    i = self.to_i
+    i == 0 ? 1 : i.abs
+  end
+  
+  def to_delimiter_s
+    number_with_delimiter self
   end
   
   # Create a random string with uncapitalized chars a-z

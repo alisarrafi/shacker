@@ -7,23 +7,14 @@
   <%= stylesheet_link_tag 'reset-min', 'application', 'formtastic', 'formtastic_changes', :cache => 'shacker' %>
   <%= javascript_include_tag 'prototype', 'effects', 'lowpro', 'helper', 'sha256', 'algorithm', :cache => 'shacker' %>
   <%= javascript_include_tag 'behaviors' %>
-  <%#= javascript_include_tag 'test_helper' -%>
+  <%= javascript_include_tag 'test_helper' -%>
 </head>
-<body>
+<body style="margin:0;">
 
-  <div id="container" class="rounded_corners container">
-    
-    <% if action_name != 'settings' %>
-      <div id="busy" style="display:none;"><%= image_tag 'loading.gif'%></div>
-    <% end %>
-    
-    <%= yield %>
-    
-  </div>
+  <div id="busy" style="display:none;"><%= image_tag 'loading.gif'%></div>
+  <div style="float:right; margin:30px;"><%= link_to 'Settings panel &raquo;', :action => 'settings' %></div>
+
+  <%= yield %>
   
-  <% extend_flash_messages -%>
-  <%= flash_messages :style => 'display:none;', :class => 'rounded_bottom_corners' %>
-  <%= animate_flash_messages -%>
-
 </body>
 </html>
