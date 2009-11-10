@@ -1,5 +1,6 @@
 .DS_Store
 *.tmproj
+push.sh
 log/*.log
 log/*.pid
 db/*.db
