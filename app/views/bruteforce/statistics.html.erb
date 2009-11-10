@@ -36,5 +36,5 @@
   <%= "<br>Note that only 400 entries are shown." if @attacks.size > 20 %>
 </div>
 
-<%= javascript_tag update_page { |page| page["headline"].visual_effect(:highlight) } %>
+<%#= javascript_tag update_page { |page| page["statistics"].visual_effect(:highlight) } %>
 <%= javascript_tag update_page { |page| page.delay(5) { page.reload } } %>
