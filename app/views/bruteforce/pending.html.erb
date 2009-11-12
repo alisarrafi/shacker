@@ -7,10 +7,12 @@
     Currently there are no challenges.<br>
     Please hang on, until one comes up.
   </h2>
-  (This page reloads automatically, just wait right here :)<br><br>
+  <span id="autoreloader">(This page reloads automatically, just wait right here :)<br><br><%= button_to_function "Look for a challenge now!", 'window.location.reload()' %></span>
+  <br><br>
 </div>
 
 <%= javascript_tag update_page { |page|
+  #page['autoreloader'].update '(This page reloads automatically, just wait right here :)'
   page['container'].visual_effect(:highlight)
   page['busy'].appear
   page.delay(20) do

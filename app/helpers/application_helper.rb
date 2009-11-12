@@ -1,5 +1,22 @@
 module ApplicationHelper
 
+  def solved_item(left=0, width=0, offset=0, password='')
+    return if left < 1 and width < 1
+    result = ''
+    result += '<div style="left:' + (left - 20).to_s + 'px; position:absolute; top:13px; color:red; font-size:13px; background-color:white; z-index:10000;">' + offset.to_delimiter_s + '</div>'
+    result += '<div style="left:' + left.to_s + 'px; width:' + width.to_s + 'px; position:absolute; top:31px; height:30px; background-color: red; z-index:10000;"></div>'
+    result += '<div style="left:' + (left - 20).to_s + 'px; position:absolute; top:63px; color:red; font-size:16px; background-color:white; z-index:10000;">' + password.to_s + '</div>'
+  end
+
+  def progress_item(left=0, width=0, offset=0)
+    return if left < 1 and width < 1
+    left = left + 31
+    width = width + 2
+    result = ''
+    result += '<div style="left:' + (left - 10).to_s + 'px; position:absolute; top:19px; font-size:9px; background-color:white;">' + offset.to_delimiter_s + '</div>' if left > 45 and left < 950
+    result += '<div style="left:' + left.to_s + 'px; width:' + width.to_s + 'px; position:absolute; top:31px; height:30px; background-color: yellow;"></div>'
+  end
+
   def other_updown
     session[:updown] == 'DESC' ? 'ASC' : 'DESC'
   end

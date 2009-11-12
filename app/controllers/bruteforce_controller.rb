@@ -4,11 +4,13 @@ class BruteforceController < ApplicationController
   
   # Start brute force
   def index
+    session[:solved] = nil
     render :action => 'pending' and return if solved? and !demo_mode
   end
 
   # Get client JavaScript for the HTML client
   def client
+    session[:solved] = nil
     render :action => 'pending.js' and return if solved? and !demo_mode
     if demo_mode
       @options = default_client_options 1     
@@ -33,19 +35,20 @@ class BruteforceController < ApplicationController
   
   # Hand in a response interval
   def report
-    render :text => 'Currently we don\'t keep track of reports. Thank you!' and return unless normal_mode
-    render :text => 'Somebody already found the solution.', :status => 406 and return if solved? and !demo_mode
+    render :js => '// Currently we don\'t keep track of reports. Thank you!' and return unless normal_mode
+    render :js => "// Sorry, but the solution was already handed in by somebody else!\n// Let's refresh your browser (twice, to go sure ;).\nwindow.location.reload();\nwindow.location.reload();" and return if solved? and !demo_mode
     Attack.save_report params[:client], params[:counter]
-    render :text => 'Thank you for your report!'
+    render :js => '// Thank you for your report!'
   end
   
   # Hand in a solution
   def solution
-    if params[:password].to_s == session[:settings].secret
-      if solved? and !demo_mode
+    if params[:password].to_s.hashed == session[:settings].sha
+      if solved? and !demo_mode and solved_by? != params[:client].to_s
         render :action => 'alreadysolved' and return
       else
-        solve! params[:password].to_s unless demo_mode
+        session[:solved] = params[:password].to_s
+        solve!(params[:password].to_s, params[:client].to_s) unless demo_mode
         render :action => 'congratulations' and return
       end
     end
@@ -60,8 +63,9 @@ class BruteforceController < ApplicationController
     end
     session[:updown] = 'DESC' unless session[:updown].to_s == 'ASC' or session[:updown].to_s == 'DESC'
     @attacks = Attack.find(:all, :order => order + ' ' + session[:updown], :limit => 400)
-    @progress = Attack.find(:all, :conditions => ["response"], :order => 'xoffset ASC', :limit => 400)
     @realm = session[:settings].characters.size.to_i ** session[:settings].max.to_i
+    @solution = what_is_the_solution?
+    @client = solved_by?
     render :layout => 'status'
   end
   
@@ -88,7 +92,7 @@ class BruteforceController < ApplicationController
         session[:settings] = session[:settings].save
         flash[:notice] = 'Settings saved.'
       else
-        flash[:error] = 'Please provide a valid password according to the selected <b><u>valid characters</u></b> and <b><u>length</u></b>.'
+        flash[:error] = 'Please provide a valid password according to the <b><u>valid characters</u></b> and <b><u>length</u></b>.'
       end
     end
     @realm = session[:settings].characters.size ** session[:settings].max

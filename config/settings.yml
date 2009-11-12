@@ -1,5 +1,5 @@
 --- !ruby/object:Settings 
-assumed: 30000
+assumed: 100000
 character_space: alpha
 characters: 
 - a
@@ -56,5 +56,6 @@ characters:
 - Z
 max: 3
 mix: 0
-mode: normal
-secret: baa
+mode: demo
+secret: sha
+sha: d600474b1b8e50d3633c91c0cf1efc454b79c9624a43fd7de441ee71745726ab

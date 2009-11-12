@@ -2,13 +2,14 @@ require 'yaml'
 
 class Settings
     
-  attr_accessor :secret, :mode, :max, :mix, :assumed, :character_space
+  attr_accessor :secret, :mode, :max, :mix, :assumed, :character_space, :sha
   attr_reader :characters
 
   def initialize
     @mode = 'demo'
     @character_space = 'alpha'
     @secret = 'sha'
+    @sha = @secret.hashed
     @max = 3
     @assumed = 100000
     @mix = 0
@@ -18,13 +19,14 @@ class Settings
   # Loading settings from settings.yml
   def read
     settings = YAML.load_file SETTINGS_FILE
-    [:secret, :mode, :max, :mix, :assumed, :character_space, :characters].each { |attribute| instance_eval "@#{attribute.to_s} = settings.#{attribute.to_s}" }
+    [:secret, :mode, :max, :mix, :assumed, :character_space, :characters, :sha].each { |attribute| instance_eval "@#{attribute.to_s} = settings.#{attribute.to_s}" }
     self
   end
   
   # Save settings object to file
   def save
     @characters = characters_array @mix
+    @sha = @secret.size == 64 ? @secret : @secret.hashed
     File.open(SETTINGS_FILE, 'w') { |file| file.write YAML::dump(self) }
     self
   end
@@ -41,21 +43,22 @@ class Settings
   
   def character_space_short
     case @character_space
-      when 'alpha' then 'a-z'
-      when 'alnum' then 'A-Z a-z 0-9'
-      when 'digit' then '0-9'
-      when 'ascii' then 'A-Z a-z 0-9 ' + SPECIAL_CHARS.join(' ')
+      when 'alpha' then HUMAN_ALPHA
+      when 'alnum' then HUMAN_ALNUM
+      when 'digit' then HUMAN_DIGIT
+      when 'ascii' then HUMAN_ASCII
     end
   end
   
   def valid_secret?
+    return true if @secret.size == 64 # Hashes are allowed as input value
     return false if @secret.empty? or @secret.size != @max
     case @character_space
-      when 'alpha' then !(@secret =~ /[^a-zA-Z]/)
-      when 'alnum' then !(@secret =~ /[^a-zA-Z0-9]/)
-      when 'digit' then !(@secret =~ /[^0-9]/)
-      when 'ascii' then !(@secret =~ Regexp.new('[^a-zA-Z0-9' + Regexp.escape(SPECIAL_CHARS.join) + ']'))
-    end    
+      when 'alpha' then !(@secret =~ REG_ALPHA)
+      when 'alnum' then !(@secret =~ REG_ALNUM)
+      when 'digit' then !(@secret =~ REG_DIGIT)
+      when 'ascii' then !(@secret =~ REG_ASCII)
+    end
   end
   
   # Reset Settings and save to file

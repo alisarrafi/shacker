@@ -1,10 +1,14 @@
 <h1>s h a c k e r</h1>
-<span id="setup">Connecting to server... </span><span id="status_label"></span><span id="status"></span>
+<span id="setup"><%= button_to_function "Load  s h a c k e r  >", "window.location.reload()", :id => "override_button" %></span><span id="status_label"></span><span id="status">&nbsp;&nbsp;<%= button_to_function "Start  s h a c k e r  >", "start_shacker()", :id => "start_button" %></span>
+
+<%= javascript_tag update_page { |page|
+  page['override_button'].hide
+  page['setup'].update 'Connecting to server... '
+}%>
 
 <%= javascript_tag remote_function(
-  :url => {:action => 'client.js', :only_path => false },
+  :url => {:action => 'client.js', :randomizer => random_string, :only_path => false },
   404 => "$('setup').insert('#{escape_javascript "HTTP Error 404.".to_error}')",
   :failure => "$('setup').insert('#{escape_javascript "failure.<br/><br/>".to_error}Reason: HTTP Error' + request.status)",
   :success => "$('setup').insert('#{escape_javascript "success.<br/>".to_success}')"
 )%>
-

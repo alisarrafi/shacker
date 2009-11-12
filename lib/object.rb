@@ -5,12 +5,22 @@ class Object
   
   include ActionView::Helpers::NumberHelper
   
-  def solve!(password='')
+  def solve!(password='', client='', offset='')
     File.open(SOLUTION_FILE, 'w') { |f| f.write password.to_s }
+    File.open(CLIENT_FILE, 'w') { |f| f.write client.to_s }
   end
   
   def unsolve!
-    File.delete SOLUTION_FILE if solved?
+    File.delete SOLUTION_FILE if File.exists? SOLUTION_FILE
+    File.delete CLIENT_FILE if File.exists? CLIENT_FILE
+  end
+  
+  def what_is_the_solution?
+    File.new(SOLUTION_FILE).read if File.exists? SOLUTION_FILE
+  end
+  
+  def solved_by?
+    File.new(CLIENT_FILE).read if File.exists? CLIENT_FILE
   end
   
   def solved?

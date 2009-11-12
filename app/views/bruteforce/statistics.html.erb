@@ -1,59 +1,77 @@
+<div id="barlabel">
+  <div style="float:left">1</div>
+  <div style="float:right"><%= @realm.to_delimiter_s %></div>
+</div>
+
+<div id="bar"></div>
+
 <div id="statistics" style="clear:both">
+  <h1>Statistics</h1>
 
-  <div id="barlabel">
-    <div style="float:left">1</div>
-    <div style="float:right"><%= @realm.to_delimiter_s %></div>
-  </div>
-  <div id="bar">
-    <% if @progress.size > 0 %>
-      <% total_progress = 0 %>
-      <% for progress in @progress do %>
-        <% left = ((progress.xoffset.to_i * 10) / @realm).to_i %>
-        <% width = ((progress.response.to_i * 1000) / @realm).to_i %>
-        <%= image_tag 'progress.gif', :style => "padding-left: #{left - total_progress}px; height: 27px; width: #{width}px; margin-left:40px;" %>
-        <% total_progress += (left + width) %>
-        
-      <% end %>
-    <% end %>
-  </div>
-  
-<br>
-<h1>Statistics</h1>
+  <% if @attacks.size > 0 %>
 
-<% if @attacks.size > 0 %>
-
-  <div>
-    <div class="tcol attack id"><%= link_to 'ID', :sort => 'id', :updown => other_updown %></div>
-    <div class="tcol attack position"><%= link_to 'Pos.', :sort => 'position', :updown => other_updown %></div>
-    <div class="tcol attack offset"><%= link_to 'Offset', :sort => 'offset', :updown => other_updown %></div>
-    <div class="tcol attack chunk"><%= link_to 'Chunk', :sort => 'chunk', :updown => other_updown %></div>
-    <div class="tcol attack client"><%= link_to 'Client', :sort => 'client', :updown => other_updown %></div>
-    <div class="tcol attack created_at"><%= link_to 'Created', :sort => 'created_at', :updown => other_updown %></div>
-    <div class="tcol attack updated_at"><%= link_to 'Updated', :sort => 'updated_at', :updown => other_updown %></div>
-    <div class="tcol attack response"><%= link_to 'Response', :sort => 'response', :updown => other_updown %></div>
-    <div class="tcol attack timespan">Elapsed time</div>
-  </div>
-
-  <% for attack in @attacks do %>
-
-    <div id="<%= attack.id %>" style="clear:both;">
-      <div class="attack id"><%= attack.id %></div>
-      <div class="attack position"><%= attack.position %></div>
-      <div class="attack offset"><%= attack.xoffset %></div>
-      <div class="attack chunk"><tt><%= attack.chunk %></tt></div>
-      <div class="attack client"><%= attack.client %></div>
-      <div class="attack created_at"><%= attack.created_at.to_s(:db) %></div>
-      <div class="attack updated_at"><%= attack.updated_at.to_s(:db) %></div>
-      <div class="attack response"><%= attack.response %></div>
-      <div class="attack timespan"><%= attack.timespan.to_s + 's' if attack.timespan > 0 %></div>
+    <div>
+      <div class="tcol attack id"><%= link_to 'ID', :sort => 'id', :updown => other_updown %></div>
+      <div class="tcol attack position"><%= link_to 'Pos.', :sort => 'position', :updown => other_updown %></div>
+      <div class="tcol attack offset"><%= link_to 'Offset', :sort => 'offset', :updown => other_updown %></div>
+      <div class="tcol attack chunk"><%= link_to 'Chunk', :sort => 'chunk', :updown => other_updown %></div>
+      <div class="tcol attack client"><%= link_to 'Client', :sort => 'client', :updown => other_updown %></div>
+      <div class="tcol attack created_at"><%= link_to 'Created', :sort => 'created_at', :updown => other_updown %></div>
+      <div class="tcol attack updated_at"><%= link_to 'Updated', :sort => 'updated_at', :updown => other_updown %></div>
+      <div class="tcol attack response"><%= link_to 'Response', :sort => 'response', :updown => other_updown %></div>
+      <div class="tcol attack timespan">Elapsed time</div>
+      <div class="tcol attack timespan"></div>
     </div>
-  
-  <% end %>
-<% end %>
 
-<div style="clear:both"></div>
+    <% for attack in @attacks do %>
+
+      <% if attack.client == @client %>
+        <% solution_offset = attack.response.nil? ? attack.xoffset.overlap(@realm).to_s + ' + X&nbsp;' : (attack.xoffset + attack.response).overlap(@realm) %>
+        <%= solved_item((((attack.xoffset.to_i + attack.response.to_i).overlap(@realm) * 1000) / @realm).to_i + 31, 5, solution_offset, @solution) %>
+      <% end %>
+        
+      <% if attack.response and attack.response.to_i <= @realm %>
+
+        <%
+          left = ((attack.xoffset.to_i * 1000) / @realm).to_i
+          width = ((attack.response.to_i * 1000) / @realm).to_i
+        
+          if (left + width) < 1001
+            first_width = width.overlap 1000
+            second_width = 0
+          else
+            first_width = (1000 - left)
+            second_width = (width - first_width).overlap 1000
+          end
+        %>
+      
+        <%= progress_item left, first_width, attack.xoffset.to_i %>
+        <%= progress_item(1, second_width, attack.xoffset.to_i) unless second_width == 0 %>
+
+      <% end %>
+
+      <div id="<%= attack.id %>" style="clear:both;">
+        <div class="attack id <%= "solution" if attack.client == @client %>"><%= attack.id %></div>
+        <div class="attack position <%= "solution" if attack.client == @client %>"><%= attack.position %></div>
+        <div class="attack offset <%= "solution" if attack.client == @client %>"><%= attack.xoffset %></div>
+        <div class="attack chunk <%= "solution" if attack.client == @client %>"><tt><%= attack.chunk %></tt></div>
+        <div class="attack client <%= "solution" if attack.client == @client %>"><%= attack.client %></div>
+        <div class="attack created_at <%= "solution" if attack.client == @client %>"><%= attack.created_at.to_s(:db) %></div>
+        <div class="attack updated_at <%= "solution" if attack.client == @client %>"><%= attack.updated_at.to_s(:db) %></div>
+        <div class="attack response <%= "solution" if attack.client == @client %>"><%= attack.response %></div>
+        <div class="attack timespan <%= "solution" if attack.client == @client %>"><%= attack.timespan.to_s + 's' if attack.timespan > 0 %></div>
+        <% if attack.client == @client %>
+        <div class="attack timespan solution solutioninrow">
+          SOLUTION: <%= @solution %>
+        </div>
+        <% end %>
+      </div>
+  
+    <% end %>
+  <% end %>
+
+  <div style="clear:both"></div>
   <%= "<br>Note that only 400 entries are shown." if @attacks.size > 20 %>
 </div>
 
-<%#= javascript_tag update_page { |page| page["statistics"].visual_effect(:highlight) } %>
-<%= javascript_tag update_page { |page| page.delay(10) { page.reload } } %>
+<%= javascript_tag update_page { |page| page.delay(10) { page.reload } } if unsolved? %>
