@@ -1,4 +1,5 @@
-<div style="float:right; margin-right: 3px;"><%= link_to 'Show statistics &raquo;', :action => 'statistics' %></div>
+<div style="float:right; margin-right: 10px;"><%= link_to 'Show statistics &raquo;', :action => 'statistics' %></div>
+<div style="float:right; margin-right: 30px;"><%= link_to_function 'Run JS Unit Test &raquo;', 'test()' %></div>
 <h1>Settings</h1><br>
 
 <% semantic_form_for session[:settings], :url => {:action => action_name} do |f| %>
@@ -17,4 +18,4 @@
 
 <% toggle_function = { :action => 'toggle_status' } %>
 <%= javascript_tag remote_function :url => toggle_function %>
-<%= periodically_call_remote :url => toggle_function, :frequency => 5 %>
+<%= periodically_call_remote :url => toggle_function, :frequency => 8 %>
