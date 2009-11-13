@@ -14,6 +14,7 @@ class BruteforceController < ApplicationController
     render :action => 'pending.js' and return if solved? and !demo_mode
     if demo_mode
       @options = default_client_options 1     
+      @options[:report_interval] = 0
     elsif mass_mode
       Attack.reset if Attack.count > 1
       Attack.create(:position => 0) if Attack.count == 0
