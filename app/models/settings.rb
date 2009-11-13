@@ -8,7 +8,7 @@ class Settings
   def initialize
     @mode = 'demo'
     @character_space = 'alpha'
-    @secret = 'sha'
+    @secret = '779d1ba1900f81e1ece4536c64382ed725a296f56fd77f3383bdf6b511637a55' # cia
     @sha = @secret.hashed
     @max = 3
     @assumed = 50000
