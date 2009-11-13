@@ -56,6 +56,6 @@ characters:
 - Z
 max: 3
 mix: 0
-mode: demo
-secret: sha
+mode: normal
+secret: d600474b1b8e50d3633c91c0cf1efc454b79c9624a43fd7de441ee71745726ab
 sha: d600474b1b8e50d3633c91c0cf1efc454b79c9624a43fd7de441ee71745726ab

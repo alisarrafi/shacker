@@ -48,6 +48,7 @@ class BruteforceController < ApplicationController
         render :action => 'alreadysolved' and return
       else
         session[:solved] = params[:password].to_s
+        @password = params[:password].to_s
         solve!(params[:password].to_s, params[:client].to_s) unless demo_mode
         render :action => 'congratulations' and return
       end
@@ -144,7 +145,7 @@ class BruteforceController < ApplicationController
   def default_client_options(position, id=0)
     result = {}
     # Static values
-    result[:secret]          = session[:settings].secret.hashed
+    result[:secret]          = session[:settings].sha
     result[:characters]      = session[:settings].characters
     result[:length]          = session[:settings].max
     result[:realm]           = result[:characters].size ** result[:length]
