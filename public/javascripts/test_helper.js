@@ -22,10 +22,25 @@ function test() {
 function setup() {
   characters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",
                 "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
-                "0","1","2","3","4","5","6","7","8","9","!","\"","#","$","%","&","'","(",")","*","+",", ","-",".","/","="];
+                "0","1","2","3","4","5","6","7","8","9","!","\"","#","$","%","&","'","(",")","*","+",",","-",".","/","="];
 }
 
 /****** TESTS ******/
+
+function test_string_next_chunk() {
+  assert_equal("a", "".next_chunk());
+  assert_equal("aa", "=".next_chunk());
+  assert_equal("y", "x".next_chunk());
+  assert_equal("abce", "abcd".next_chunk());
+  assert_equal("abcy", "abcx".next_chunk());
+  assert_equal("abc0", "abcZ".next_chunk());
+  assert_equal("aa*", "aa)".next_chunk());
+  assert_equal("aa+", "aa*".next_chunk());
+  assert_equal("aa,", "aa+".next_chunk());
+  assert_equal("aaaabaaab", "aaaabaaaa".next_chunk());
+  assert_equal("aaaabaaaa", "aaaaa====".next_chunk());
+  assert_equal("aaaa", "===".next_chunk());
+}
 
 function test_string_last() {
   assert_equal("a", "a".last());
@@ -62,17 +77,6 @@ function test_string_increment_last() {
   assert_equal("", "".increment_last());
 }
 
-function test_string_next_chunk() {
-  assert_equal("a", "".next_chunk());
-  assert_equal("aa", "=".next_chunk());
-  assert_equal("y", "x".next_chunk());
-  assert_equal("abce", "abcd".next_chunk());
-  assert_equal("abcy", "abcx".next_chunk());
-  assert_equal("abc0", "abcZ".next_chunk());
-  assert_equal("aaaabaaab", "aaaabaaaa".next_chunk());
-  assert_equal("aaaabaaaa", "aaaaa====".next_chunk());
-  assert_equal("aaaa", "===".next_chunk());
-}
 
 /****** HELPER ******/
 

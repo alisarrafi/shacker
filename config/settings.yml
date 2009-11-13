@@ -83,5 +83,5 @@ characters:
 max: 3
 mix: 0
 mode: demo
-secret: sha
-sha: d600474b1b8e50d3633c91c0cf1efc454b79c9624a43fd7de441ee71745726ab
+secret: aaa
+sha: 9834876dcfb05cb167a5c24953eba58c4ac89b1adf57f28f2f9d09af107ee8f0
