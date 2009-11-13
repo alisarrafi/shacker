@@ -1,10 +1,11 @@
 var test_results = []
-var characters = null
+var characters = []
+var testmode = false
 
 function test() {
-  var tmp = characters
+  testmode = true;
   console.info("Running JavaScript Tests of /javascripts/test_helper.js")
-  characters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+  setup();
   console.log("test_string_last();")
   test_string_last();
   console.log("test_string_is_highest();")
@@ -16,7 +17,12 @@ function test() {
   console.log("test_string_next_chunk();")
   test_string_next_chunk();
   evaluate_test_results();
-  characters = tmp
+}
+
+function setup() {
+  characters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",
+                "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
+                "0","1","2","3","4","5","6","7","8","9","!","\"","#","$","%","&","'","(",")","*","+",", ","-",".","/","="];
 }
 
 /****** TESTS ******/
@@ -30,17 +36,19 @@ function test_string_last() {
 
 function test_string_is_highest() {
   assert_equal("a", characters.first());
-  assert_equal("Z", characters.last());
+  assert_equal("=", characters.last());
   assert_equal(false, "a".is_highest());
-  assert_equal(true, "Z".is_highest());
+  assert_equal(true, "=".is_highest());
   assert_equal(false, "".is_highest());
 }
 
 function test_string_increment() {
   assert_equal("b", "a".increment());
   assert_equal("A", "z".increment());
-  assert_equal("a", "Z".increment());
-  assert_equal("a", "!".increment());
+  assert_equal("0", "Z".increment());
+  assert_equal("\"", "!".increment());
+  assert_equal("=", "/".increment());
+  assert_equal("a", "=".increment());
   assert_equal("a", "abc".increment());
   assert_equal("a", "".increment());
 }
@@ -49,20 +57,21 @@ function test_string_increment_last() {
   assert_equal("b", "a".increment_last());
   assert_equal("aC", "aB".increment_last());
   assert_equal("ASDg", "ASDf".increment_last());
-  assert_equal("asdasdasdasdasda", "asdasdasdasdasdZ".increment_last());
+  assert_equal("asdasdasdasdasd0", "asdasdasdasdasdZ".increment_last());
+  assert_equal("asdasdasdasdasd.", "asdasdasdasdasd-".increment_last());
   assert_equal("", "".increment_last());
 }
 
 function test_string_next_chunk() {
   assert_equal("a", "".next_chunk());
-  assert_equal("aa", "Z".next_chunk());
+  assert_equal("aa", "=".next_chunk());
   assert_equal("y", "x".next_chunk());
   assert_equal("abce", "abcd".next_chunk());
   assert_equal("abcy", "abcx".next_chunk());
-  assert_equal("abda", "abcZ".next_chunk());
+  assert_equal("abc0", "abcZ".next_chunk());
   assert_equal("aaaabaaab", "aaaabaaaa".next_chunk());
-  assert_equal("aaaabaaaa", "aaaaaZZZZ".next_chunk());
-  assert_equal("aaaa", "ZZZ".next_chunk());
+  assert_equal("aaaabaaaa", "aaaaa====".next_chunk());
+  assert_equal("aaaa", "===".next_chunk());
 }
 
 /****** HELPER ******/

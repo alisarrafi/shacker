@@ -11,7 +11,7 @@ class Settings
     @secret = 'sha'
     @sha = @secret.hashed
     @max = 3
-    @assumed = 100000
+    @assumed = 50000
     @mix = 0
     @characters = characters_array @mix
   end

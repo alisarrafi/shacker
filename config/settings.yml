@@ -1,6 +1,6 @@
 --- !ruby/object:Settings 
 assumed: 100000
-character_space: alpha
+character_space: ascii
 characters: 
 - a
 - b
@@ -54,8 +54,34 @@ characters:
 - X
 - Y
 - Z
+- "0"
+- "1"
+- "2"
+- "3"
+- "4"
+- "5"
+- "6"
+- "7"
+- "8"
+- "9"
+- "!"
+- "\""
+- "#"
+- $
+- "%"
+- "&"
+- "'"
+- (
+- )
+- "*"
+- +
+- ", "
+- "-"
+- .
+- /
+- "="
 max: 3
 mix: 0
-mode: normal
-secret: d600474b1b8e50d3633c91c0cf1efc454b79c9624a43fd7de441ee71745726ab
+mode: demo
+secret: sha
 sha: d600474b1b8e50d3633c91c0cf1efc454b79c9624a43fd7de441ee71745726ab
