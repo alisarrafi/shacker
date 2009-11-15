@@ -7,20 +7,21 @@ CLIENT_FILE = File.join Rails.root, 'tmp', 'client.txt'
 ALPHA_DOWN = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
 ALPHA_CAP  = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
 ALPHA = ALPHA_DOWN + ALPHA_CAP
-SPECIAL_CHARS = ["!", "\"", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", "="]
+SPECIAL_CHARS = [" ", "!", "\"", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", ":", ";", "<", "=", ">", "?", "@", "[", "\\", "]", "^", "_", "`", "{", "|", "}", "~"]
 DIGITS    = ['0','1','2','3','4','5','6','7','8','9']
 
 # Character modes
 CHARACTER_SPACES = [['Only alphabetical characters', 'alpha'],
                    ['Alphabetical characters and numbers', 'alnum'],
                    ['Only numbers', 'digit'],
-                   ['Numbers, alphabetical and special characters', 'ascii']]
+                   ['The entire 95 characters ASCII table', 'ascii']]
 
 # Regexps for character modes
 REG_ALPHA = /[^a-zA-Z]/
 REG_ALNUM = /[^a-zA-Z0-9]/
 REG_DIGIT = /[^0-9]/
-REG_ASCII = Regexp.new('[^a-zA-Z0-9' + Regexp.escape(SPECIAL_CHARS.join) + ']')
+REG_ASCII = /[^\x20-\x7E]/
+#REG_ASCII = Regexp.new('[^a-zA-Z0-9' + Regexp.escape(SPECIAL_CHARS.join) + ']')
 
 # Same thing only human-readable
 HUMAN_ALPHA = 'a-z A-Z'

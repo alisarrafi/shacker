@@ -20,16 +20,19 @@ function test() {
 }
 
 function setup() {
-  characters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",
-                "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
-                "0","1","2","3","4","5","6","7","8","9","!","\"","#","$","%","&","'","(",")","*","+",",","-",".","/","="];
+  characters = characters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",
+                             "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
+                             "0","1","2","3","4","5","6","7","8","9",
+                             " ","!","\"","#","$","%","&","'","(",")","*","+",",","-",".","/",":",";","<","=",">","?","@","[","\\","]","^","_","`","{","|","}","~"];
+  first_character = 'a';
+  last_character = '~';
 }
 
 /****** TESTS ******/
 
 function test_string_next_chunk() {
-  assert_equal("a", "".next_chunk());
-  assert_equal("aa", "=".next_chunk());
+  assert_equal(first_character, "".next_chunk());
+  assert_equal(first_character + first_character, last_character.next_chunk());
   assert_equal("y", "x".next_chunk());
   assert_equal("abce", "abcd".next_chunk());
   assert_equal("abcy", "abcx".next_chunk());
@@ -38,8 +41,8 @@ function test_string_next_chunk() {
   assert_equal("aa+", "aa*".next_chunk());
   assert_equal("aa,", "aa+".next_chunk());
   assert_equal("aaaabaaab", "aaaabaaaa".next_chunk());
-  assert_equal("aaaabaaaa", "aaaaa====".next_chunk());
-  assert_equal("aaaa", "===".next_chunk());
+  assert_equal("aaaabaaaa", "aaaaa~~~~".next_chunk());
+  assert_equal(first_character + first_character + first_character + first_character, "~~~".next_chunk());
 }
 
 function test_string_last() {
@@ -50,10 +53,10 @@ function test_string_last() {
 }
 
 function test_string_is_highest() {
-  assert_equal("a", characters.first());
-  assert_equal("=", characters.last());
-  assert_equal(false, "a".is_highest());
-  assert_equal(true, "=".is_highest());
+  assert_equal(first_character, characters.first());
+  assert_equal(last_character, characters.last());
+  assert_equal(false, first_character.is_highest());
+  assert_equal(true, last_character.is_highest());
   assert_equal(false, "".is_highest());
 }
 
@@ -62,10 +65,10 @@ function test_string_increment() {
   assert_equal("A", "z".increment());
   assert_equal("0", "Z".increment());
   assert_equal("\"", "!".increment());
-  assert_equal("=", "/".increment());
-  assert_equal("a", "=".increment());
-  assert_equal("a", "abc".increment());
-  assert_equal("a", "".increment());
+  assert_equal(last_character, "}".increment());
+  assert_equal(first_character, last_character.increment());
+  assert_equal(first_character, "abc".increment());
+  assert_equal(first_character, "".increment());
 }
 
 function test_string_increment_last() {
