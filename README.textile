@@ -105,6 +105,38 @@ If you want to create your own widgets, you need to add one of these preset chun
 * www.your.url/client.js
 * www.your.url/facebook.js
 
+*Note that you will find extensive developer comments/information in those two files. Make sure to check them out.*
+
+h3. Settings
+
+At the settings pane you will find the following options:
+
+h4. Mode
+
+* *Normal Mode* implies that for each client a records is created in the database. In this record we keep track of the chunks sent to the client and the responses from each client (i.e. "I'm client X, I started at @bbb@ and tried the subsequent 50,000 passwords").
+* *Mass Mode* does not create a record for each client. Instead it just updates one single record to keep track of which chunk was handed out last to a client. This way, millions of clients can participate with ease.
+* In *Demo Mode* every client receives the same start chunk (e.g. @aaa@), handed in solutions will be ignored, no database access.
+
+h4. Characters
+
+You can limit the allowed characters for the password to random options (only numbers, only letters, ASCII, etc.)
+
+h4. Secret
+
+The unknown password can be entered in clear text, or as a 64-characters-long SHA-256 hash.
+
+h4. Length
+
+The number of characters allowed in the secret password. Note that EXACTLY this amount of characters will be tested in the brute force.
+
+h4. Respond
+
+After this amount of password attempts, the client will send a response
+
+h4. Mix
+
+In order to prevent @zzz@ to be found very late (consider going from @aaa@ to @aab@, etc.), the valid characters will be shuffled if you chose this option.
+
 h3. Continuous Beta Warning
 
 There is still some heavy construction going on here, so stay tuned and don't expect something perfect :)
